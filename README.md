@@ -1,5 +1,5 @@
 此项目为 [Home Assistant](https://www.home-assistant.io/) 的[巴法云](https://cloud.bemfa.com/)插件。
-
+注意此项目为从skddyj/bemfa而来，感谢原作者larry-wong/bemfa，和各位开发者的付出，因在hacs有很多，故精简了一些信息便于区分
 ## 功能
 将 Home Assistant 实体同步至巴法云，并使用小爱同学/天猫精灵/小度音箱控制。
 
