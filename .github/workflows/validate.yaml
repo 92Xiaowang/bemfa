@@ -1,17 +1,32 @@
+# 工作流名称：HACS Action
+# 用于在HACS（Home Assistant Community Store）中验证自定义集成
 name: HACS Action
 
+# 定义工作流的触发条件
 on:
-  push:
-  pull_request:
-  schedule:
-    - cron: "0 0 * * *"
+  push:        # 当代码推送到仓库的任何分支时触发
+  pull_request: # 当创建或更新拉取请求（PR）时触发
+  #schedule:    # 定时触发配置
+    #- cron: "0 0 * * *"  # cron表达式：每天UTC时间0:00执行（北京时间8:00）
 
+# 定义要执行的任务
 jobs:
-  validate:
-    runs-on: "ubuntu-latest"
+  validate:                    # 任务ID，唯一标识这个任务
+    runs-on: "ubuntu-latest"   # 指定运行环境为最新版的Ubuntu系统
+    
+    # 任务的具体执行步骤（按顺序执行）
     steps:
-      - uses: "actions/checkout@v2"
+      # 第一步：检出代码
+      # 作用：将仓库代码克隆到GitHub Actions的虚拟环境中
+      - uses: "actions/checkout@v2"  # 使用checkout动作的v2版本
+      
+      # 第二步：运行HACS验证
+      # 名称：在工作流运行日志中显示的步骤名称
       - name: HACS validation
-        uses: "hacs/action@main"
-        with:
-          category: "integration"
+        # 使用HACS官方提供的验证动作
+        # 作用：验证自定义集成是否符合HACS的提交标准和格式要求
+        uses: "hacs/action@main"  # 使用hacs/action仓库的main分支最新版本
+        
+        # 传递给HACS验证动作的参数
+        with:                    
+          category: "integration"  # 指定验证类别为integration（集成）
