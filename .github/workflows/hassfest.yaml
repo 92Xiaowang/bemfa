@@ -1,30 +1,14 @@
-# 工作流名称：HACS Action
-# 用于在HACS（Home Assistant Community Store）中验证集成
-name: HACS Action
+name: Validate with hassfest  # 工作流名称：使用 Hassfest 工具进行验证
 
-# 定义工作流的触发条件
-on:
-  push:        # 当代码推送到仓库时触发
-  pull_request: # 当创建或更新拉取请求时触发
-  #schedule:
-    #- cron: "0 0 * * *"
+on:  # 触发条件
+  push:  # 当代码推送到仓库时触发
+  pull_request:  # 当创建拉取请求时触发
+  #schedule:  # 定时触发
+    #- cron: "0 0 * * *"  # 每天 UTC 时间 00:00 运行
 
-# 定义要执行的任务
-jobs:
-  validate:                    # 任务ID：validate
-    runs-on: "ubuntu-latest"   # 运行环境：最新版的Ubuntu系统
-    
-    # 任务的具体步骤
-    steps:
-      # 第一步：检出代码
-      # 作用：将仓库代码拉取到运行环境中
-      - uses: "actions/checkout@v2"  # 使用checkout动作的v2版本
-      
-      # 第二步：HACS验证
-      # 名称：在工作流日志中显示的步骤名称
-      - name: HACS validation
-        # 使用HACS官方验证动作
-        # 作用：验证集成是否符合HACS的提交要求
-        uses: "hacs/action@main"  # 使用main分支的最新版本
-        with:                    # 传递给动作的参数
-          category: "integration"  # 指定验证类别为integration（集成）
+jobs:  # 定义任务
+  validate:  # 任务标识符：验证
+    runs-on: "ubuntu-latest"  # 运行环境：最新版 Ubuntu 系统
+    steps:  # 任务步骤
+      - uses: "actions/checkout@v2"  # 使用版本 2 的 checkout 操作，检出代码
+      - uses: home-assistant/actions/hassfest@master  # 使用 Hassfest 操作（主分支），进行 Home Assistant 集成验证
